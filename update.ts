@@ -50,8 +50,8 @@ export const update = (msg: Msg, model: Model) =>
 
                         const promises = Array.map(matchingSpecies, (species: any) => {
                             const urlParts = species.url.split("/")
-                            const filtered = urlParts.filter((part: string) => part !== "")
-                            const lastPart = filtered[filtered.length - 1]
+                            const filtered = Array.filter(urlParts, (part: string) => part !== "")
+                            const lastPart = Array.reduce(filtered, "", (acc: string, cur: string) => cur)
                             const id = parseInt(lastPart, 10)
 
                             return fetch(apiRoot + "pokemon/" + id).then((resp) => {
